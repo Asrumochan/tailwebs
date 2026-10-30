@@ -9,13 +9,14 @@ const Create = () => {
         setData({...data,[evt.target.name]:evt.target.value})
     }
     const addHandler=()=>{
+      //
         Axios.post("http://127.0.0.1:3030/datas",data)
       .then((resp)=>{
         console.log(resp.data)
         navigate('/admin')
       })
       .catch((err)=>{
-        alert("Data exists")
+        alert("Data updated")
         navigate('/admin')
       })
     }

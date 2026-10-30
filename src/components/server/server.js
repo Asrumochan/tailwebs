@@ -60,7 +60,6 @@ app.get('/datas/:id', async (request , response) => {
         });
     }
 });
-
 app.post('/datas', async (request , response) => {
     try {
         let newData = {
@@ -72,12 +71,16 @@ app.post('/datas', async (request , response) => {
         let data = await Data.findOne({
             $and: [
                 { subject: newData.subject },
-                { name: newData.name }
+                { name: newData.name },
+
             ]
         });
         if (data) {
-            return res.status(401).json({
-                msg: 'Data already exists'
+            data = await Data.find({name:newData.name})
+            data = {...newData,mark:newData.mark}
+            await Data.replaceOne({name:newData.name},{mark:data.mark,name:data.name,subject:data.subject})
+            return response.json({
+                msg: 'Data Updated'
             });
         }
         data = new Data(newData);

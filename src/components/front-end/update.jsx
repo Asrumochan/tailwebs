@@ -25,6 +25,7 @@ const Update = () => {
 
     const submitHandler = (evt) => {
         evt.preventDefault();
+        //
         Axios.put(`http://127.0.0.1:3030/datas/${id}`, data)
             .then((resp) => {
                 console.log('Data updated:', resp.data);
